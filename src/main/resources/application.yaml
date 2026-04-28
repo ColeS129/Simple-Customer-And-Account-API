@@ -1,3 +1,9 @@
 spring:
   application:
     name: Simple-Customer-And-Account-API
+  datasource:
+    url: jdbc:mysql://localhost:3306/Simple-Customer-And-Account-API?createDatabaseIfNotExist=true
+    username: root
+    password: Hello1234!
+  jpa:
+    show-sql: true
