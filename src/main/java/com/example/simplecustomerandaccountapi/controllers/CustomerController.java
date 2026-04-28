@@ -6,6 +6,7 @@ import com.example.simplecustomerandaccountapi.repositories.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,5 +25,15 @@ public class CustomerController {
                 .stream()
                 .map(customerMapper::toCustomerDto)
                 .toList());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Long id) {
+        var customer = customerRepository.findById(id).orElse(null);
+        if (customer == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(customerMapper.toCustomerDto(customer));
     }
 }
